@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ page import="java.util.List" %>
-<%@ page import="com.javaex.dao.GuestBookDao" %>
-<%@ page import="com.javaex.vo.PersonVo" %>
+<%@ page import="com.javaex.dao.GuestbookDao" %>
+<%@ page import="com.javaex.vo.GuestbookVo" %>
+
 
 <%
-	GuestBookDao guestBookDao = new GuestBookDao();
-	List<PersonVo> personList = guestBookDao.personSelect();
-	
-	System.out.println(personList);
+	GuestbookDao dao = new GuestbookDao();
+	List<GuestbookVo> list = dao.getList();
+	//System.out.println(list.toString());
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,41 +18,39 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="./insert.jsp" method="get">
-		<table border="1">
+	<form action="./add.jsp" method="post">
+		<table border="1" width="500">
 			<tr>
-				<td colspan="1">이름</td>
-				<td colspan="4">
-					<input type="text" name="name" value="">
-				</td>
-				<td colspan="2">비밀번호</td>
-				<td colspan="4">
-					<input type="text" name="password" value="">
-				</td>
+				<td>이름</td><td><input type="text" name="name"></td>
+				<td>비밀번호</td><td><input type="password" name="pass"></td>
 			</tr>
 			<tr>
-				<td colspan="11">
-					<textarea cols="70" rows="7" name="content"></textarea>
-				</td>
+				<td colspan=4><textarea name="content" cols=60 rows=5></textarea></td>
 			</tr>
 			<tr>
-				<td colspan="11">
-					<button type="submit">확인</button>
-				</td>
-			</tr>		
+				<td colspan=4 align=right><button type="submit">등록</button></td>
+			</tr>
 		</table>
 	</form>
-	<br>
-	<%-- <table border="1">
-		<tr>
-			<td>
-				<%=personList.get(1).getNo() %>
-			</td>
-			<td>
-				<%=personList.get(1).getName() %>
-			</td>
-		</tr>
-		
-	</table> --%>
+	<br/>
+
+	<% 
+		for(GuestbookVo vo :list){
+	%>
+			<table width=510 border=1>
+				<tr>
+					<td>[<%=vo.getNo() %>]</td>
+					<td><%=vo.getName() %></td>
+					<td><%=vo.getRegDate() %></td>
+					<td><a href="./deleteForm.jsp?no=<%=vo.getNo() %>">삭제</a></td>
+				</tr>
+				<tr>
+					<td colspan=4><%=vo.getContent() %></td>
+				</tr>
+			</table>
+		    <br/>
+	<% 
+		}
+	%>
 </body>
 </html>
