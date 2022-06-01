@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ page import="java.util.List" %>
-<%@ page import="com.javaex.dao.GuestbookDao" %>
-<%@ page import="com.javaex.vo.GuestbookVo" %>
+<%@ page import="com.javaex.dao.GuestBookDao" %>
+<%@ page import="com.javaex.vo.GuestBookVo" %>
 
 
 <%
-	GuestbookDao dao = new GuestbookDao();
-	List<GuestbookVo> list = dao.getList();
+GuestBookDao dao = new GuestBookDao();
+	List<GuestBookVo> list = dao.getList();
 	//System.out.println(list.toString());
 %>
 
@@ -34,8 +34,8 @@
 	</form>
 	<br/>
 
-	<% 
-		for(GuestbookVo vo :list){
+	<%
+	for(GuestBookVo vo :list){
 	%>
 			<table width=510 border=1>
 				<tr>
